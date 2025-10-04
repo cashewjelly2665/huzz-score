@@ -12,6 +12,14 @@
 </head>
 <body>
   <h1>How Much Huzz Do You Have?</h1>
+  <h3>Do you think you have huzz? Are you seeking for a rizzy girlfriend? Well, then this test is for you! Take this 15 question long test to see if you're worthy for a huzz!</h3>
+  <h2>Scoring System:</h2>
+    <p>0-700: Bad (you aint getting a girl lil bro 🫵😂)</p>
+    <p>701-1400: Below Average (only getting a girl if lucky 🫤)</p>
+    <p>1401-1800: OK (decent chance of a getting a girl 🙂)</p>
+    <p>1801-2200: Good (you will get a girl in your lifetime 😁)</p>
+    <p>2201-2600: Very Good (bro got at least 1 million aura points 🗿)</p>
+    <p>2601-3000: Ultimate Huzz (bro got infinite aura + sigma girl 😍)</p>
   <div id="quiz"></div>
   <div id="result"></div>
 
@@ -79,19 +87,17 @@
       }
     }
 
-    function showResult() {
-      document.getElementById("quiz").style.display = "none";
-      const result = document.getElementById("result");
-      let message = "";
-      if (total <= 700) message = "Bad";
-      else if (total <= 1400) message = "Below Average";
-      else if (total <= 1800) message = "Okay";
-      else if (total <= 2200) message = "Good";
-      else if (total <= 2600) message = "Very Good";
-      else message = "Ultimate Huzz";
-      result.textContent = `Your Score: ${total}/3000 - ${message}`;
-      result.style.display = "block";
-    }
+      function calculateScore() {
+        if (selected.includes(null)) {
+          alert("Please answer all questions!");
+          return;
+        }
+        const total = selected.reduce((a,b)=>a+b,0);
+        const result = document.getElementById("result");
+        result.innerHTML = `<p>Your Score: <b>${total}</b></p>`;
+        result.style.display = "block";
+        window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+      }
 
     showQuestion();
   </script>
