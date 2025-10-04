@@ -88,31 +88,34 @@
     function startTest() {
       document.getElementById("startBtn").style.display = "none";
       document.getElementById("quiz").style.display = "block";
+      document.getElementById("result").style.display = "none";
+      current = 0;
+      total = 0;
       showQuestion();
     }
 
     function showQuestion() {
-      const q = questions[current];
       const quiz = document.getElementById("quiz");
-      quiz.innerHTML = `<div class="question">Question ${current + 1} of 15:<br>${q.q}</div>` +
+      if (current >= questions.length) {
+        showResult();
+        return;
+      }
+      const q = questions[current];
+      quiz.innerHTML = `<div class="question">Question ${current + 1} of ${questions.length}:<br>${q.q}</div>` +
         q.options.map(o => `<button onclick="select(${o.score})">${o.text}</button>`).join("");
     }
 
     function select(score) {
       total += score;
       current++;
-      if (current < questions.length) {
-        showQuestion();
-      } else {
-        showResult();
-      }
+      showQuestion();
     }
 
     function showResult() {
+      document.getElementById("quiz").style.display = "none";
       const result = document.getElementById("result");
       result.innerHTML = `<p>Your Score: <b>${total}</b></p>`;
       result.style.display = "block";
-      document.getElementById("quiz").style.display = "none";
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
   </script>
