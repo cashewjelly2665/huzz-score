@@ -3,59 +3,75 @@
 <head>
   <title>Huzz Test</title>
   <style>
-    body { font-family: Arial; background: #111; color: white; text-align: center; padding: 20px; }
-    .question { margin: 20px; font-size: 1.3em; }
-    button { margin: 10px; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; background: #1e90ff; color: white; font-size: 1em; }
-    button:hover { opacity: 0.8; }
-    #result { font-size: 1.5em; margin-top: 30px; display: none; }
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .question {
+      margin: 20px;
+      font-size: 1.3em;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #1e90ff;
+      color: white;
+      font-size: 1em;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    #result {
+      font-size: 1.5em;
+      margin-top: 30px;
+      display: none;
+    }
+    #quiz {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>How Much Huzz Do You Have?</h1>
-  <h3>Do you think you have huzz? Are you seeking for a rizzy girlfriend? Well, then this test is for you! Take this 15 question long test to see if you're worthy for a huzz!</h3>
+  <h3>Do you think you have huzz? Are you seeking for a rizzy girlfriend? Well, then this test is for you! Take this 15-question test to see if you're worthy for a huzz!</h3>
+
   <h2>Scoring System:</h2>
-    <p>0-700: Bad (you aint getting a girl lil bro 🫵😂)</p>
-    <p>701-1400: Below Average (only getting a girl if lucky 🫤)</p>
-    <p>1401-1800: OK (decent chance of a getting a girl 🙂)</p>
-    <p>1801-2200: Good (you will get a girl in your lifetime 😁)</p>
-    <p>2201-2600: Very Good (bro got at least 1 million aura points 🗿)</p>
-    <p>2601-3000: Ultimate Huzz (bro got infinite aura + sigma girl 😍)</p>
+  <p>0–700: Bad (you ain't getting a girl lil bro 🫵😂)</p>
+  <p>701–1400: Below Average (only getting a girl if lucky 🫤)</p>
+  <p>1401–1800: OK (decent chance of getting a girl 🙂)</p>
+  <p>1801–2200: Good (you will get a girl in your lifetime 😁)</p>
+  <p>2201–2600: Very Good (bro got at least 1 million aura points 🗿)</p>
+  <p>2601–3000: Ultimate Huzz (bro got infinite aura + sigma girl 😍)</p>
+
+  <h2>Are you ready to take the test?</h2>
+  <button id="startBtn" onclick="startTest()">Yessir 🗿</button>
+
   <div id="quiz"></div>
   <div id="result"></div>
 
   <script>
-    // 15 Questions
     const questions = [
       { q: "Are you over 6'2?", options: [{text:"No",score:60},{text:"Yes",score:200}] },
-      
       { q: "Do you do your daily mewing exercises?", options: [{text:"Never",score:40},{text:"Sometimes",score:100},{text:"Always",score:200}] },
-      
       { q: "Do you play Steal a Brainrot?", options: [{text:"No",score:200},{text:"Yes",score:50}] },
-      
       { q: "Do you go on Reddit at least daily?", options: [{text:"No",score:200},{text:"Yes",score:20}] },
-      
       { q: "Do you like Italian Brainrot?", options: [{text:"No",score:200},{text:"Yes",score:20}] },
-      
       { q: "Do you play Fortnite?", options: [{text:"No",score:200},{text:"Yes",score:50}] },
-      
       { q: "Do you wear glasses?", options: [{text:"Yes",score:100},{text:"No",score:200}] },
-      
       { q: "Do you doomscroll YouTube Shorts, Instagram Reels?", options: [{text:"No",score:200},{text:"Yes",score:30}] },
-      
       { q: "Do you use Discord?", options: [{text:"No",score:200},{text:"Yes",score:20}] },
-      
       { q: "Do you stream or post on YouTube?", options: [{text:"No",score:200},{text:"Yes",score:100}] },
-      
       { q: "Do you use slang words/acronyms when talking to people in real life?", options: [{text:"No",score:150},{text:"Sometimes",score:100},{text:"Yes",score:200}] },
-      
-      { q: "Do you use the skull emoji", options: [{text:"No",score:200},{text:"Yes",score:20}] },
-      
+      { q: "Do you use the skull emoji?", options: [{text:"No",score:200},{text:"Yes",score:20}] },
       { q: "Do you use the moai emoji?", options: [{text:"No",score:50},{text:"Yes",score:200}] },
-      
       { q: "Do you work out every day?", options: [{text:"No",score:20},{text:"Sometimes",score:70},{text:"Yes",score:200}] },
-      
       { q: "Do you think you have huzz? (trick question maybe)", options: [{text:"No",score:200},{text:"Yes",score:0}] }
-      
     ];
 
     function shuffle(array) {
@@ -64,16 +80,21 @@
         [array[i], array[j]] = [array[j], array[i]];
       }
     }
-
     shuffle(questions);
 
     let current = 0;
     let total = 0;
 
+    function startTest() {
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("quiz").style.display = "block";
+      showQuestion();
+    }
+
     function showQuestion() {
       const q = questions[current];
       const quiz = document.getElementById("quiz");
-      quiz.innerHTML = `<div class="question">Question ${current+1} of 15:<br>${q.q}</div>` +
+      quiz.innerHTML = `<div class="question">Question ${current + 1} of 15:<br>${q.q}</div>` +
         q.options.map(o => `<button onclick="select(${o.score})">${o.text}</button>`).join("");
     }
 
@@ -87,19 +108,13 @@
       }
     }
 
-      function calculateScore() {
-        if (selected.includes(null)) {
-          alert("Please answer all questions!");
-          return;
-        }
-        const total = selected.reduce((a,b)=>a+b,0);
-        const result = document.getElementById("result");
-        result.innerHTML = `<p>Your Score: <b>${total}</b></p>`;
-        result.style.display = "block";
-        window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
-      }
-
-    showQuestion();
+    function showResult() {
+      const result = document.getElementById("result");
+      result.innerHTML = `<p>Your Score: <b>${total}</b></p>`;
+      result.style.display = "block";
+      document.getElementById("quiz").style.display = "none";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
   </script>
 </body>
 </html>
